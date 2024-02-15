@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  mongod:
+    image: mongo:latest
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: iba1234
+    deploy:
+      replicas: 1
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo_data:/data/db  # Mount the persistent volume
+
+  
+
+volumes:
+  mongo_data:  # Define the persistent volume
+    driver: local
