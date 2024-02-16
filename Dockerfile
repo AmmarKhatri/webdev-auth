@@ -1,5 +1,5 @@
 # Step 1: Use an official Node.js runtime as a parent image
-FROM node:20
+FROM node:20-alpine as base
 
 # Step 2: Set the working directory in the container
 WORKDIR /usr/src/app
@@ -13,7 +13,7 @@ RUN npm install
 # Step 5: Bundle your app's source code inside the Docker image
 COPY . .
 
-# Step 6: Your app binds to port 3000, so you'll use the EXPOSE instruction to have it mapped by the docker daemon
+# Step 6: Your app binds to port 8080, so you'll use the EXPOSE instruction to have it mapped by the docker daemon
 EXPOSE 8080
 
 # Step 7: Define the command to run your app

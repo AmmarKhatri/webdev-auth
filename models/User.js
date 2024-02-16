@@ -20,6 +20,7 @@ const UserSchema = new mongoose.Schema({
         enum: ['ADMIN', 'USER', 'GUEST'], // Example roles, adjust as needed
         default: 'ADMIN'
     },
+    tickets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tickets' }],
     createdAt: {
         type: Date,
         default: Date.now

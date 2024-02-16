@@ -8,8 +8,8 @@ async function registerUser (req, res) {
         let user = await Users.findOne({ email })
         console.log("User =>", user)
         if (user) return res.json({ message: "User already created!" })
-
-        await Users.create({ ...req.body, password: await bcrypt.hash(password, 5) });
+        if (password.length < 8) return res.json({ message: "Password must be atleast 8 characters." })
+        await Users.create({ ...req.body, password: await bcrypt.hash(password, 5) }); //5 salt rounds
 
         return res.json({ msg: "CREATED" })
     } catch (error) {
