@@ -14,8 +14,8 @@ async function loginUser(req, res){
         const token = jwt.sign({
             email,
             createdAt: new Date(),
-            admin: user.admin,
-        }, "MY_SECRET", { expiresIn: "1d" });
+            role: user.role,
+        }, process.env.JWTSECRET, { expiresIn: "1d" });
 
         res.json({
             msg: "LOGGED IN", token
