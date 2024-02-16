@@ -8,17 +8,19 @@ var app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // connect to db
+let conString = "mongodb://"+process.env.MONGO_USER+":"+process.env.MONGO_PASS+"@mongod:"+process.env.MONGO_PORT+"/sample?authSource="+process.env.MONGO_USER+"&authMechanism=DEFAULT"
+console.log("String =>", conString);
 (async () => {
     try {
-        await mongoose.connect("mongodb://"+process.env.MONGO_USER+":"+process.env.MONGO_PASS+"@mongod:"+process.env.MONGO_PORT+"/?authMechanism=DEFAULT")
+        await mongoose.connect(conString)
         console.log('Connection to mongo completed.');
     } catch (error) {
         console.error('Unable to connect to the database:', error);
     }
 })()
 //compiling routers
-const router = require('./routes/index');
-app.use('/', router);
+const authRouter = require('./routes/user/router');
+app.use('/user', authRouter);
 //defaulting unknown routes to 404 (Not found)
 app.use(function (req, res, next) {
     next(createError(404));

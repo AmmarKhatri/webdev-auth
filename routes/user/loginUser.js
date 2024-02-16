@@ -1,8 +1,7 @@
 const bcrypt = require("bcrypt");
-const Users = require("../models/User");
-var router = express.Router();
+const Users = require("../../models/User");
 const jwt = require("jsonwebtoken")
-router.post("/login", async (req, res) => {
+async function loginUser(req, res){
     try {
         const { email, password } = req.body
 
@@ -24,6 +23,6 @@ router.post("/login", async (req, res) => {
     } catch (error) {
         console.error(error)
     }
-});
+};
 
-module.exports = router
+module.exports = loginUser

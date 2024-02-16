@@ -1,21 +1,20 @@
 const bcrypt = require("bcrypt");
 const Users = require("../../models/User");
-var express = require("express");
-var router = express.Router();
 
-router.post("/register", async (req, res) => {
+async function registerUser (req, res) {
     try {
         const { email, password } = req.body
 
         let user = await Users.findOne({ email })
-        if (user) return res.statusCode(409).json({ message: "User already created!" })
+        console.log("User =>", user)
+        if (user) return res.json({ message: "User already created!" })
 
         await Users.create({ ...req.body, password: await bcrypt.hash(password, 5) });
 
         return res.json({ msg: "CREATED" })
     } catch (error) {
-        console.error(e)
+        return res.json({ msg: error })
     }
-});
+};
 
-module.exports = router;
+module.exports = registerUser;
