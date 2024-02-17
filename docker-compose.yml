@@ -3,6 +3,7 @@ version: '3.8'
 services:
   mongod:
     image: mongo:latest
+    restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: secretpass
@@ -27,10 +28,6 @@ services:
       - ".env"
     depends_on:
       - "mongod"
-
-  
-
-  
 
 volumes:
   mongo_data:  # Define the persistent volume
